@@ -16,3 +16,5 @@ furthering my Computer Architecture skillset (which is what I am looking to make
 # Sources:
 
 [Dreamcast Hardware Specification](https://segaretro.org/images/8/8b/Dreamcast_Hardware_Specification_Outline.pdf)
+
+[Hitachi SuperH4 Specification](https://www.st.com/resource/en/user_manual/cd00147165-sh-4-32-bit-cpu-core-architecture-stmicroelectronics.pdf)
