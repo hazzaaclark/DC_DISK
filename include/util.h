@@ -44,6 +44,10 @@
 #define         THREAD_PRIO_MAX             4096
 #define         THREAD_PRIO_DEFAULT           10
 #define         THREAD_LABEL_SIZE            256
+#define         THREAD_RUNNING              0x0001
+#define         THREAD_READY                0x0002
+#define         THREAD_WAIT                 0x0003
+#define         THREAD_FINISHED             0x0004
 
 typedef struct HEADER
 {
@@ -62,8 +66,8 @@ typedef struct HEADER
 typedef ATTRIBUTE_32 struct THREAD
 {
     struct CPU_IRQ* IRQ_CONTEXT;
-    unsigned* LIST:32;
-    unsigned* QUEUE:32;
+    unsigned LIST:32;
+    unsigned QUEUE:32;
 
     UNK* THREAD_ID;
     UNK* PRIORITY;
@@ -96,6 +100,16 @@ typedef ATTRIBUTE_32 struct CPU_IRQ
 
 } CPU_IRQ;
 
+typedef U32(*IRQ_TYPE)(void);
+typedef int IRQ_HANLDER(void);
+
+void IRQ_RETURN(void);
+void IRQ_CREATE_CONTEXT(CPU_IRQ* IRQ_CONTEXT, U32* STACK, U32* ARGS, unsigned MODE);
+void IRQ_ENABLE(void);
+void IRQ_RESTORE(int VALUE);
+int IRQ_INIT(void);
+void IRQ_SHUTDOWN(void);
+IRQ_HANLDER* GET_HANDLER(U32* SOURCE);
 
 
 #endif
