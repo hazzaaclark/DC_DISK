@@ -50,6 +50,8 @@ typedef volatile double VF64;
 #define     STATIC          static
 #define     INLINE          inline
 
+#define ATTRIBUTE_32 __attribute__((aligned(32)))
+
 #if defined(__GNUC__)
 #define __GNUC__
 #endif
