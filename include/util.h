@@ -45,6 +45,59 @@
 #define         THREAD_PRIO_DEFAULT           10
 #define         THREAD_LABEL_SIZE            256
 
+typedef struct HEADER
+{
+    void* SH4_TLS;
+    U64* POINTER;
+
+} HEADER;
+
+/* ATTRIBUTE IS THE CONSTANT DIRECTIVE WHEREBY WE DEFINE */
+/* A CONSTANT BYTEWISE SIZE THROUGHOUT ALL TYPES IN STRUCT */
+
+/* THIS STRUCTURE PERTAINS TOWARDS THE FUNCTIONALITY OF THE MAIN THREADS */
+
+/* SOURCE: https://gcc.gnu.org/onlinedocs/gcc/Attribute-Syntax.html */
+
+typedef ATTRIBUTE_32 struct THREAD
+{
+    struct CPU_IRQ* IRQ_CONTEXT;
+    unsigned* LIST:32;
+    unsigned* QUEUE:32;
+
+    UNK* THREAD_ID;
+    UNK* PRIORITY;
+
+    U32* FLAGS;
+    unsigned int STATE;
+    void(*HOOK_CALLBACK)(void* OBJECT, char* MESSAGE);
+
+} THREAD;
+
+/* AN ARBITARY 32 BIT STRUCTURE TO DECLARE TO DECLARE THE TYPES */
+/* SEEN ON THE HITACHI SUPERH4 CPU */
+
+/* SOURCE: https://www.st.com/resource/en/user_manual/cd00147165-sh-4-32-bit-cpu-core-architecture-stmicroelectronics.pdf */
+
+typedef ATTRIBUTE_32 struct CPU_IRQ
+{
+    U32* PC;
+    U32* PR;
+    U32* GBR;
+    U32* VBR;
+    U32* MAC_HI;
+    U32* MAC_LO;
+    U32* SR;
+    U32* FPCR;
+    U32* PFPR[16];
+    U32* SFPF[16];
+    U32* GPR[16];
+    U32* FPSCR;
+
+} CPU_IRQ;
+
+
+
 #endif
 
 #endif
