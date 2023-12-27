@@ -25,11 +25,26 @@ FS_DIRECTORY* ROOT_DIRECTORY(UNK* HANDLE)
 {
     #undef USE_THREADDING
 
+    struct FS_DIRECTORY* ROOT;
     struct MMU_HANDLER* MMU;
     struct MMU_NODE* MMU_NODES;
 
     CONTENT* CONTENT = (int*)malloc(HANDLE);
-    
+
+    /* THIS APPLIES FOR EVERY SUBSEQUENT LINE */
+    /* AND OR IF THE EVALUATION OF THE CONTENT */
+    /* IN SAID LINE EQUATES TO 0 */
+
+    for (UNK i = 0; i < CONTENT; i++)
+    {
+        if(MMU_NODES == 0 || '/')
+            strcpy(ROOT->NAME, sizeof(&MMU + 1));   
+
+        else
+            strcpy(ROOT->NAME, sizeof(&MMU));
+    }
+
+    return &ROOT;
 }
 
 #endif
