@@ -1,4 +1,4 @@
-/* COPYRIGHT (C) HARRY CLARK 2023 */
+/* COPYRIGHT (C) HARRY CLARK 2024 */
 
 /* SEGA DREAMCAST ROM DISK TOOLKIT */
 
@@ -60,6 +60,32 @@ FS_HANDLER* FILE_SYS_ROOT(void)
 {
     struct FS_HANDLER* FS_ROOT;
     return malloc(sizeof(FS_ROOT));
+}
+
+/* THIS METHOD HANNDLES A RAW FILE SYSTEM HANDLER */
+/* SUCH THAT IS ABLE TO DETERMINE A PLAUSIBLE FILE */
+/* PATH BASED ON FILE DESCRIPTORS */
+
+STATIC
+FS_HANDLER* FILE_SYS_OPEN(const char* FUNCTION, unsigned int* MODE)
+{
+    struct FS_HANDLER* FILE_SYS_BASE;
+    char* REFERENCE[FILE_SYS_MAX];
+
+    /* ASSUME THAT THE FILE SYSTEM IS BEING */
+    /* OPERATED FROM THE ROOT */
+
+    if(!strncmp(FUNCTION, "/", 0))
+    {
+        /* IF THE BUFFER IS WITHIN THE SPECIFIED PARAMETERS */
+
+        if(MODE > sizeof(FILE_SYS_DIR))
+            return FILE_SYS_ROOT();
+        
+        else
+            return NULL;
+        
+    }
 }
 
 #endif
