@@ -105,6 +105,7 @@ void ROMDISK_LIST_DIR(void)
     S32 INDEX;
     U32 DIRECTORY; 
     U32 FILE_TYPE;
+    UNK FILE_LENGTH;
 
     #ifdef USE_GDI
     
@@ -142,7 +143,15 @@ void ROMDISK_LIST_DIR(void)
                 else    
                     continue;
             }
+
+            /* AFTER THIS PREPRIATORY CHECK, DETERMINE THE FILENAME */
+            /* AND ENSURE THAT IT MATCHES THE TYPES */
+
+            if((strlen(ROM->FILENAME) == FILE_LENGTH) && strncmp(ROM->FILENAME, FILE_LENGTH, 0)) 
+                return INDEX;
         }
+
+        return INDEX;
     }
 
     #endif
