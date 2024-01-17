@@ -10,23 +10,33 @@
 #include <stdio.h>
 #include <stdbool.h>
 
+typedef struct FILE_ARGS
+{
+    const char* FILE_PATH;
+    const char* FILE_MODE;
+    const char* STDERR;
+
+} FILE_ARGS;
+
 /* I'M TESTING TO DETERMINE IF MODULARISATION WOULD BENEFIT ME IN TERMS OF */
 /* REDUCING THE COMPLEXITIY OF THE MAIN FUNCTION */
 
 /* RATHER KEEP THE MAIN FUNCTION CLUTTER FREE */
 
-FILE* OPEN_FILE(const char* FILE_PATH, const char* FILE_MODE, const char* STDERR)
+FILE* OPEN_FILE()
 {
+    struct FILE_ARGS* FILE_ARGS;
+
     /* ASSUMING THERE IS NO FILE BEING PASSED THROUGH */
     /* CHECKS THE MODE OF THE FILE BEING PASSED THROUGH AS INPUT OR OUTPUT */
 
-    if(FILE_PATH == NULL) return FILE_MODE[0] == 'r' ? stdin : stdout;
+    if(FILE_ARGS->FILE_PATH == NULL) return FILE_ARGS->FILE_MODE[0] == 'r' ? stdin : stdout;
 
-    FILE* ROM_FILE = fopen(FILE_PATH, FILE_MODE);
+    FILE* ROM_FILE = fopen(FILE_ARGS->FILE_PATH, FILE_ARGS->FILE_MODE);
 
     if(ROM_FILE == NULL)
     {
-        fprintf(stderr, "Womp womp no file to create\n", STDERR);
+        fprintf(stderr, "Womp womp no file to create\n", FILE_ARGS->STDERR);
     }
 
     return ROM_FILE;
@@ -63,7 +73,7 @@ int main(int argc, char* argv[])
 
         else 
         {
-            
+            OPEN_FILE();
         }
     }
 }
