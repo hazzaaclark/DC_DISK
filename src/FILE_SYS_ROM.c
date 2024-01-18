@@ -78,16 +78,25 @@ STATIC
 U32 ROMDISK_FIND(struct ROM_DISK* ROM, char* FUNCTION, char* DIRECTORY)
 {
     S32 INDEX;
-    const char* CURRENT_OFFSET;
-    const struct ROM_FILE_HANDLER* FILE_HANDLER;  
+    char* CURRENT_OFFSET;
+    struct ROM_FILE_HANDLER* FILE_HANDLER;  
+    struct GDI* GDI_MOUNT;
 
     /* SEARCHES FOR THE FIRST OCCURANCE OF THE ROOT */
 
     while(CURRENT_OFFSET = strchr(FUNCTION, '/'))
     {
+        /* IF NOT CURRENT OFFSET EXISTS IN THE NODE */
+        /* EVALUATE THE LIST BASED OF THE LIST DIRECTORY */
+
+        /* FROM THERE, ALLOCATE SIZE FOR THE MOUNTED DISK IMAGE */
+        /* IN RELATION TO THE INDEX POINTER */
+
         if(CURRENT_OFFSET != FUNCTION)
         {
-            ROMDISK_LIST_DIR();
+            INDEX += sizeof(ROMDISK_LIST_DIR());
+            
+            FILE_HANDLER = (UNK*)malloc(sizeof((GDI_MOUNT->IMAGE + INDEX)));
         }
     }
 }
