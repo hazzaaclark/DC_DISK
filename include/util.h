@@ -22,9 +22,13 @@
 #include <sys/stat.h>
 #endif
 
+#include <assert.h>
+#include <malloc.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
+#include <string.h>
 
 /* THREADDING IS THE PARADIGM BY WHICH WE ARE ABLE TO */
 /* DETERMINE EXECUTION PATHS ALONG THE PROGRAM COUNTER */
@@ -40,6 +44,12 @@
 #define USE_THREADDING  
 #else
 #define USE_THREADDING
+
+#define         THREAD_MAX_LENGTH           128
+#define         THREAD_MAX_ROM_SIZE         2048
+
+#define         THREAD_ITERATE_POS          2
+#define         THREAD_ITERATE_OFF          3
 
 #define         THREAD_PRIO_MAX             4096
 #define         THREAD_PRIO_DEFAULT           10
@@ -100,8 +110,23 @@ typedef ATTRIBUTE_32 struct CPU_IRQ
 
 } CPU_IRQ;
 
+typedef struct ROM
+{
+    char RELEASE_BUFFER[17];
+    char* ROM_KEY[THREAD_MAX_LENGTH];
+    char* ROM_VALUE[THREAD_MAX_LENGTH];
+    char ROM_FILE_HEADER[THREAD_MAX_LENGTH]; 
+    const char* RELEASE_DATE;
+    size_t ROM_START;
+    size_t ROM_END;
+    size_t ROM_READ_BUFFER;
+    size_t ROM_BYTES;
+
+} ROM;
+
 typedef U32(*IRQ_TYPE)(void);
 typedef int IRQ_HANLDER(void);
+typedef int CONTENT;
 
 void IRQ_RETURN(void);
 void IRQ_CREATE_CONTEXT(CPU_IRQ* IRQ_CONTEXT, U32* STACK, U32* ARGS, unsigned MODE);
@@ -110,6 +135,12 @@ void IRQ_RESTORE(int VALUE);
 int IRQ_INIT(void);
 void IRQ_SHUTDOWN(void);
 IRQ_HANLDER* GET_HANDLER(U32* SOURCE);
+
+static char* ROM_BUFFER(const char* RELEASE, char* BUFFER);
+static void ROM_PROC_OPTION(const char* RELEASE);
+static bool IS_VALID_DATE(const char* VALUE);
+int ROM_HEADER_OFFSET();
+
 
 
 #endif
